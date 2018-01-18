@@ -4,15 +4,14 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
+import kh.aws.lambda.domain.Page;
 import pagecounts.PageCountsRepository;
 
-public class GetPageCount implements RequestHandler<String, String> {
+public class GetPageCount implements RequestHandler<Page, String> {
 	
-	
-	
-	public String handleRequest(String name, Context context) {
+	public String handleRequest(Page page, Context context) {
 		LambdaLogger logger = context.getLogger();
-		logger.log("GetPageCount called...");
+		logger.log("GetPageCount called with pageId: " + page.getPageId().toString());
 		
 		PageCountsRepository pageCounts = new PageCountsRepository();
 		String result = pageCounts.getPageCount().toString();
